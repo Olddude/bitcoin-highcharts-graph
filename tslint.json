@@ -11,6 +11,10 @@
         "no-console": false,
         "ordered-imports": false,
         "object-literal-sort-keys": false,
+        "interface-name": false,
+        "object-literal-shorthand": false,
+        "no-angle-bracket-type-assertion": false,
+        "only-arrow-functions": false,
         "quotemark": {
             "options": "single"
         }

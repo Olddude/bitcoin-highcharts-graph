@@ -1,3 +1,3 @@
 import { bootstrap } from './app/bootstrap';
 
-document.addEventListener('DOMContentLoaded', bootstrap)
+document.addEventListener('DOMContentLoaded', bootstrap);
