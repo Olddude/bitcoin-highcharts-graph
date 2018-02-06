@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "git clean -xfd --exclude node_modules",
     "build": "webpack",
     "build:prod": "webpack --env.prod",
     "start": "webpack-dev-server --content-base dist/",
