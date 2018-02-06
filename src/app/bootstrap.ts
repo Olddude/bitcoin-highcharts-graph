@@ -13,14 +13,59 @@ import * as moment from 'moment';
 import { btcHistoricFetch } from './btc/historic/btc-historic-fetch';
 import { Currency } from './btc/currency';
 import { btcCurrentFetch } from './btc/current/btc-current-fetch';
-import { Entry } from './btc/current/btc-current-hypermedia';
+import { Entry, BtcCurrentHypermedia } from './btc/current/btc-current-hypermedia';
+import { saveToStorage } from './storage/save-to-storage';
+import { loadAll } from './storage/load-from-storage';
 
 export function bootstrap() {
   setGlobalOptions();
 
-  const start = getParamAs<Date>('start') || yesterday();
-  const end = getParamAs<Date>('end') || now();
-  const currency = getParamAs<Currency>('currency') || 'EUR';
+  const currency = 'EUR';
 
-  const chart = generateChart('target', configureOptions());
+  const options = configureOptions({
+    chart: {
+      events: {
+        load: function() {
+          const series = this.series[0];
+          btcCurrentFetch(currency)
+            .map(data => {
+              saveToStorage(window.localStorage, data, 'btc');
+              return data;
+            })
+            .map(data => {
+              const x = (new Date(data.time.updated)).getTime();
+              const y = data.bpi[currency].rate_float;
+              return { dateTime: x, value: y };
+            })
+            .subscribe(point => series.addPoint([point.dateTime, point.value], true, true));
+        }
+      }
+    },
+    yAxis: {
+      title: {
+          text: `Price in EUR`
+      },
+      plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+      }]
+    },
+    series: [{
+      data: (function() {
+        const data = [];
+        loadAll(window.localStorage, 'btc')
+          .map(_ => _.value)
+          .map(_ => {
+            const x = (new Date(_.time.updated)).getTime();
+            const y = _.bpi[currency].rate_float;
+            return { dateTime: x, value: y };
+          })
+          .map(point => data.push([point.dateTime, point.value]));
+        return data;
+      }())
+    }]
+  });
+
+  const chart = generateChart('target', options);
 }

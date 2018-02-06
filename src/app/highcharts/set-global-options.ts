@@ -5,7 +5,7 @@ export function setGlobalOptions() {
   Highcharts.setOptions({
     lang: de.lang,
     global: {
-      useUTC: false
+      useUTC: true
     }
   });
 }

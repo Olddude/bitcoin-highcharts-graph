@@ -1,5 +1,11 @@
 import { IEntity } from './entity';
 
 export function loadAll(storage: Storage, key: string): IEntity[] {
-  return Array.from<IEntity>(JSON.parse(storage.getItem(key)));
+  let output;
+  try {
+    output = Array(JSON.parse(storage.getItem(key)));
+  } catch (e) {
+    output = [];
+  }
+  return output;
 }
