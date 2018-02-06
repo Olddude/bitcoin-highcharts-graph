@@ -11,7 +11,7 @@ export function btcCurrentFetch(currency: Currency): Observable<BtcCurrentHyperm
     .fillFromObject({
         cur: currency.toUpperCase()
       });
-  return Observable.timer(0, 1000)
+  return Observable.timer(0, 1000 * 60)
     .flatMap(() => fetchResponse(new URL(url)))
     .flatMap(_ => Observable.fromPromise(_.json()));
 }

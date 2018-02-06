@@ -15,6 +15,7 @@
         "object-literal-shorthand": false,
         "no-angle-bracket-type-assertion": false,
         "only-arrow-functions": false,
+        "no-string-literal": false,
         "quotemark": {
             "options": "single"
         }
