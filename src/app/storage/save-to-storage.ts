@@ -15,7 +15,7 @@ function keyExists(storage: Storage, saveObjKey: string) {
 
 function appendToKeyObject(storage: Storage, objToSave: any, saveObjKey: string): string {
   const saveObjJson = storage.getItem(saveObjKey);
-  const saveObjArray: IEntity[] = Array(JSON.parse(saveObjJson));
+  const saveObjArray = Array.from<IEntity>(JSON.parse(saveObjJson));
   const hash = sha1(objToSave);
   if (!saveObjArray.find(_ => _.key === hash)) {
     saveObjArray.push({ key: hash, value: objToSave });

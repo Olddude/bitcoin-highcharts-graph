@@ -21,9 +21,10 @@ export function bootstrap() {
   setGlobalOptions();
 
   const currency = 'EUR';
-
+  
   const options = configureOptions({
     chart: {
+      zoomType: 'x',
       events: {
         load: function() {
           const series = this.series[0];
@@ -40,6 +41,9 @@ export function bootstrap() {
             .subscribe(point => series.addPoint([point.dateTime, point.value], true, true));
         }
       }
+    },
+    xAxis: {
+      type: 'datetime'
     },
     yAxis: {
       title: {

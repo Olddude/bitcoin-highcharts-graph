@@ -9,14 +9,13 @@ import { loadAll } from '../storage/load-from-storage';
 export function configureOptions(options: Options = {}): Options {
   return deepmerge(options, {
     chart: {
-      type: 'spline'
+      type: 'spline',
     },
     title: {
       text: 'Bitcoin live chart (UTC)'
     },
     xAxis: {
-      type: 'datetime',
-      tickPixelInterval: 150
+      type: 'datetime'
     },
     legend: {
       enabled: false

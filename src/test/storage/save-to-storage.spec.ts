@@ -22,7 +22,7 @@ describe('save to storage', () => {
     const objToSave = { foo: 'bar' };
     saveToStorage(fakeStorage, objToSave, storageKey);
     saveToStorage(fakeStorage, objToSave, storageKey);
-    expect(Array(JSON.parse(fakeStorage.getItem(storageKey))).length).to.eql(1);
+    expect(Array.from(JSON.parse(fakeStorage.getItem(storageKey))).length).to.eql(1);
   });
 
   it('should add a second entry if it is unique', () => {
@@ -30,6 +30,6 @@ describe('save to storage', () => {
     saveToStorage(fakeStorage, firstObj, storageKey);
     const secondObj = { bar: 'foo' };
     saveToStorage(fakeStorage, secondObj, storageKey);
-    expect(Array(JSON.parse(fakeStorage.getItem(storageKey))).length).to.eql(2);
+    expect(Array.from(JSON.parse(fakeStorage.getItem(storageKey))).length).to.eql(2);
   });
 });
